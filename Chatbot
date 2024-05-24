@@ -1,0 +1,153 @@
+HTML:
+
+<!DOCTYPE html>
+<html lang="en">
+    <center>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Chat Bot</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Creative Chat Bot</h1>
+            <img src="bot_icon.png" alt="Bot Icon">
+        </div>
+        <div class="chat-container">
+            <div id="chat-box"></div>
+            <input type="text" id="user-input" placeholder="Type your message..." >
+            <button onclick="sendMessage()">Send</button>
+            
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</center>
+</html>
+
+
+CSS:
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color:black;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background-color:black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.flower-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.chat-container {
+    padding: 20px;
+    
+}
+
+#chat-box {
+    background-color: rgba(255, 255, 255, 0.7); /* Background with transparency */  
+    background-image: url('background_image.jpg');
+    background-size: cover;
+    height: 300px;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+}
+
+#user-input {
+    width: calc(100% - 60px);
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+}
+
+button {
+    width: 60px;
+    padding: 8px;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    margin-bottom: 100px;
+    border-radius: 12px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+
+JAVASCRIPT:
+
+function sendMessage() {
+    var userInput = document.getElementById("user-input").value;
+    if (userInput.trim() === "") return;
+
+    appendMessage("You", userInput);
+    document.getElementById("user-input").value = "";
+
+    // Simulate bot response
+    setTimeout(function() {
+        var botResponse = generateBotResponse(userInput);
+        appendMessage("Bot", botResponse);
+    }, 500);
+}
+
+function appendMessage(sender, message) {
+    var chatBox = document.getElementById("chat-box");
+    var messageElement = document.createElement("div");
+    messageElement.innerHTML = "<strong>" + sender + ": </strong>" + message;
+    chatBox.appendChild(messageElement);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function generateBotResponse(userInput) {
+    // Convert user input to lowercase for case-insensitive matching
+    var input = userInput.toLowerCase();
+
+    if (input.includes("hi") || input.includes("hello")) {
+        return "Hello there!";
+    } else if (input.includes("weather")) {
+        return "I'm sorry, I can't provide weather information at the moment.";
+    } else {
+        return "I'm sorry, I didn't understand that.";
+    }
+
+    return responses[Math.floor(Math.random() * responses.length)];
+}
